@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mis vías</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f4e5f">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mis vías">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+:root{--bg:#e8ebe8;--card:#f7f8f6;--ink:#1b2226;--mut:#5d6a70;--line:#c9d0cc;--acc:#e0147a;--deep:#1f4e5f;--g1:#2f8f5b;--g2:#c98a0a;--g3:#d2432b;--g4:#7b3fb5;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#12171a;--card:#1b2227;--ink:#eef2f0;--mut:#9aa8ae;--line:#2c373d;--acc:#ff4fa3;--deep:#6fb6cc;--g1:#4fc487;--g2:#e5ac3a;--g3:#ff7a62;--g4:#b88af0;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Barlow,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:640px;margin:0 auto;padding:12px 14px 90px}
+h1,h2{font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif;margin:0}
+h1{font-size:34px;line-height:1}h2{font-size:28px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:9px 13px;min-height:40px}
+:focus-visible{outline:3px solid var(--deep);outline-offset:1px}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+button.dng{color:var(--g3);border-color:var(--g3)}
+button.on{background:var(--deep);border-color:var(--deep);color:var(--bg)}
+.chip{min-height:34px;padding:4px 12px;border-radius:99px;border-width:2px}
+input,select,textarea{width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 11px;min-height:42px}
+textarea{min-height:90px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin:6px 0 14px}
+.sub{color:var(--mut);font-size:14px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.filters input{grid-column:1/-1}
+.card{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px}
+.thumb{width:62px;height:62px;border-radius:6px;background:var(--line) center/cover;flex:none;position:relative;overflow:hidden}
+.thumb svg{position:absolute;inset:0;width:100%;height:100%}
+.card .nm{font-weight:600;font-size:17px}
+.gr{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;font-size:22px;min-width:46px;text-align:center;margin-left:auto;border-left:3px solid currentColor;padding-left:9px}
+.ph{position:relative;border-radius:10px;overflow:hidden;background:var(--line);margin:10px 0;line-height:0}
+.ph img{width:100%;display:block}.ph svg{position:absolute;inset:0;width:100%;height:100%}
+.ph.ed{cursor:crosshair}
+.nophoto{padding:34px 12px;text-align:center;color:var(--mut);line-height:1.4}
+.dot{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--acc);border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.facts div,.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.box{margin:12px 0}
+.warn{border:2px solid var(--g2)}
+.facts b{display:block;font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:24px;line-height:1.1}
+.facts span{color:var(--mut);font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+label{display:block;margin:12px 0 4px;font-weight:600;font-size:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.sc>button{display:block;width:100%;text-align:left;border:0;border-radius:0;padding:0;background:none;min-height:0}
+.sc .im{height:150px;background:var(--line) center/cover}
+.sc .tx{padding:10px 12px}.sc .tx b{font:700 26px "Barlow Condensed","Arial Narrow",sans-serif;display:block}.sc .tx span{display:block}
+.sc .ac{display:flex;gap:8px;padding:0 12px 12px;flex-wrap:wrap}
+a.btn{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:8px;background:var(--deep);color:var(--bg);text-decoration:none;font-weight:600}
+.rk{display:flex;gap:12px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:6px}
+.rk.me{border-color:var(--acc);border-width:2px}
+.rk .pos{font:700 24px "Barlow Condensed","Arial Narrow",sans-serif;width:28px}.rk .nm{font-weight:600;flex:1}
+.rk b{font:700 24px "Barlow Condensed","Arial Narrow",sans-serif}
+.empty{text-align:center;color:var(--mut);padding:40px 10px}
+.notes{white-space:pre-wrap}
+.ok{color:var(--g1);font-weight:600}
+.sb{flex:none;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
+.sb svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.card>.sb:first-child{margin-left:0}.card .sb{margin-left:auto}.card .sb+.gr{margin-left:0}
+.rate{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 2px}
+.stars{display:flex;gap:2px}
+.star{border:0;background:none;padding:4px;min-height:40px;min-width:40px;color:var(--g2);display:inline-flex;align-items:center;justify-content:center}
+.star svg,.ib svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.star svg{width:28px;height:28px}
+.star.f svg{fill:currentColor}
+.ib{width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
+.ib svg{width:22px;height:22px}
+.ib.act{background:var(--acc);border-color:var(--acc);color:#fff}
+.ib.act svg{fill:currentColor}
+.ln{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line)}
+#off{position:fixed;left:0;right:0;bottom:0;padding:6px 12px calc(6px + env(safe-area-inset-bottom,0px));background:var(--g2);color:#111;text-align:center;font-size:13px;z-index:5}
+#off[hidden]{display:none}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+</head>
+<body>
+<main id="app"><div class="empty">Cargando…</div></main>
+<div id="off" hidden>Sin conexión: se muestran los datos guardados en el móvil.</div>
+<script>
+/* Los datos de conexión están en config.js */
+const REC=/type=recovery/.test(location.hash);
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const GR=["4","5","5+","6a","6a+","6b","6b+","6c","6c+","7a","7a+","7b","7b+","7c","7c+","8a","8a+","8b"];
+const S={pl:[],uid:null,owner:false,name:"",schools:[],routes:[],mine:{},ad:{},pj:{},rt:{},gp:{},sm:{},rank:[],sc:null,cur:null,v:"",f:{q:"",g:"",s:""}};
+const $=s=>document.querySelector(s);
+const E=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ok=async p=>{const{data,error}=await p;if(error)throw error;return data};
+const err=e=>alert("Algo ha fallado: "+(e.message||e));
+const gi=g=>GR.indexOf(g);
+const msg=t=>`<span class="sub">${t}</span>`;
+const ymd=d=>{const n=new Date(d);return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0")};
+const td=()=>ymd(new Date());
+const iso=v=>new Date(v+"T12:00:00").toISOString();
+const fd=d=>{if(!d)return"";const x=new Date(d);return isNaN(x)?"":x.toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"})};
+const att=a=>a?`${a} ${a===1?"intento":"intentos"}`:"";
+const SI={"A vista":["--g4",'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'],"Flash":["--deep",'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'],"Encadenada":["--g1",'<path d="M5 12l5 5L20 7"/>'],"Con descanso":["--g2",'<path d="M8 5v14M16 5v14"/>']};
+const sbadge=st=>{if(!st)return"";const i=SI[st]||["--mut",'<path d="M5 12l5 5L20 7"/>'];return `<span class="sb" style="--c:var(${i[0]})" role="img" aria-label="${E(st)}" title="${E(st)}"><svg viewBox="0 0 24 24" aria-hidden="true">${i[1]}</svg></span>`};
+const gcol=g=>{const i=gi(g);return i<3?"var(--g1)":i<9?"var(--g2)":i<13?"var(--g3)":"var(--g4)"};
+const pts=(r,st)=>Math.round((S.gp[r.grade]||0)*(S.sm[st]||0));
+const styles=()=>Object.keys(S.sm).sort((a,b)=>S.sm[b]-S.sm[a]);
+const mapsUrl=s=>/^https?:\/\//.test(s.maps_url||"")?s.maps_url:(s.lat!=null&&s.lng!=null?"https://www.google.com/maps/dir/?api=1&destination="+s.lat+","+s.lng:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s.name+" "+s.place));
+const parseLL=t=>{t=String(t||"").trim();if(!t)return{lat:null,lng:null};const m=t.match(/^(-?\d{1,3}(?:\.\d+)?)\s*[,;\s]\s*(-?\d{1,3}(?:\.\d+)?)$/);if(!m)return null;const a=+m[1],b=+m[2];if(Math.abs(a)>90||Math.abs(b)>180)return null;return{lat:a,lng:b}};
+const pl=l=>l.map(p=>p.join(",")).join(" ");
+const poly=(l,w)=>!l||l.length<2?"":`<svg viewBox="0 0 1000 1000" preserveAspectRatio="none" style="pointer-events:none"><polyline points="${pl(l)}" fill="none" stroke="#fff" stroke-width="${w+3}" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".85"/><polyline points="${pl(l)}" fill="none" stroke="var(--acc)" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`;
+const olines=(o,clk)=>o&&o.length?`<svg viewBox="0 0 1000 1000" preserveAspectRatio="none" style="pointer-events:none">${o.map(x=>`<polyline points="${pl(x.line)}" fill="none" stroke="#fff" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".6"/><polyline points="${pl(x.line)}" fill="none" style="stroke:${gcol(x.grade)}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".9"/>${clk?`<polyline data-o="${x.id}" points="${pl(x.line)}" fill="none" stroke="transparent" stroke-width="22" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" style="pointer-events:stroke;cursor:pointer"/>`:""}`).join("")}</svg>`:"";
+const dots=l=>l&&l.length?`<span class="dot" style="left:${l[0][0]/10}%;top:${l[0][1]/10}%"></span>`:"";
+const pb=(src,line,ed,m,oth,clk)=>src?`<div class="ph ${ed?"ed":""}" id="ph"><img src="${E(src)}" alt="">${olines(oth,clk)}${poly(line,4)}${dots(line)}</div>`:`<div class="ph"><div class="nophoto">${m||"Sin foto."}</div></div>`;
+const others=(src,id,sc)=>src?S.routes.filter(x=>x.school_id===sc&&x.photo_url===src&&x.id!==id&&x.line&&x.line.length>1):[];
+function rs(f,cb){if(!f)return;const im=new Image();im.onload=()=>{const k=Math.min(1,1400/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*k;c.height=im.height*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);c.toBlob(cb,"image/jpeg",.8)};im.src=URL.createObjectURL(f)}
+async function up(blob){const p=Date.now()+"-"+Math.random().toString(36).slice(2,8)+".jpg";const{error}=await sb.storage.from("fotos").upload(p,blob,{contentType:"image/jpeg"});if(error)throw error;return sb.storage.from("fotos").getPublicUrl(p).data.publicUrl}
+
+/* ---------- datos ---------- */
+async function loadRank(){S.rank=await ok(sb.from("ranking").select("*").order("points",{ascending:false}));snap()}
+/* ---------- modo sin conexión ---------- */
+const CK="vias-cache-v1",QK="vias-cola-v1";
+const snap=()=>{try{localStorage.setItem(CK,JSON.stringify({uid:S.uid,name:S.name,schools:S.schools,routes:S.routes,mine:S.mine,ad:S.ad,pj:S.pj,rt:S.rt,gp:S.gp,sm:S.sm,rank:S.rank}))}catch(e){}};
+const unsnap=()=>{try{return JSON.parse(localStorage.getItem(CK))}catch(e){return null}};
+const getQ=()=>{try{return JSON.parse(localStorage.getItem(QK))||[]}catch(e){return[]}};
+const setQ=q=>{try{localStorage.setItem(QK,JSON.stringify(q))}catch(e){}};
+const kind=x=>x.t||(x.style?"asc":"asc_del");
+const fam=x=>{const k=kind(x);return k.startsWith("pj")?"pj":k.startsWith("rt")?"rt":"asc"};
+function enq(ops){let q=getQ();ops.forEach(o=>{q=q.filter(x=>!(x.route_id===o.route_id&&fam(x)===fam(o)))});setQ(q.concat(ops))}
+function applyQ(){getQ().forEach(x=>{const k=kind(x);
+  if(k==="asc"){S.mine[x.route_id]=x.style;S.ad[x.route_id]={d:x.done_at,a:x.attempts}}
+  else if(k==="asc_del"){delete S.mine[x.route_id];delete S.ad[x.route_id]}
+  else if(k==="pj")S.pj[x.route_id]=x.attempts;
+  else if(k==="pj_del")delete S.pj[x.route_id];
+  else if(k==="rt")S.rt[x.route_id]=x.stars;
+  else if(k==="rt_del")delete S.rt[x.route_id]})}
+const tmo=(p,ms)=>Promise.race([p,new Promise((_,j)=>setTimeout(()=>j(new Error("Tiempo de espera agotado")),ms))]);
+const bn=()=>{const o=$("#off");if(o)o.hidden=navigator.onLine&&!S.off};
+function offline(c){Object.assign(S,{uid:c.uid,owner:false,anon:false,name:c.name,schools:c.schools,routes:c.routes,mine:c.mine,ad:c.ad||{},pj:c.pj||{},rt:c.rt||{},gp:c.gp,sm:c.sm,rank:c.rank,pl:[],off:true});bn();schools()}
+async function flush(){
+  const q=getQ();if(!q.length||!S.uid)return;
+  for(const x of q){
+    try{const k=kind(x);
+      if(k==="asc")await ok(sb.from("ascents").upsert({user_id:S.uid,route_id:x.route_id,style:x.style,done_at:x.done_at||new Date().toISOString(),attempts:x.attempts||null},{onConflict:"user_id,route_id"}));
+      else if(k==="asc_del")await ok(sb.from("ascents").delete().eq("user_id",S.uid).eq("route_id",x.route_id));
+      else if(k==="pj")await ok(sb.from("projects").upsert({user_id:S.uid,route_id:x.route_id,attempts:x.attempts},{onConflict:"user_id,route_id"}));
+      else if(k==="pj_del")await ok(sb.from("projects").delete().eq("user_id",S.uid).eq("route_id",x.route_id));
+      else if(k==="rt")await ok(sb.from("ratings").upsert({user_id:S.uid,route_id:x.route_id,stars:x.stars},{onConflict:"user_id,route_id"}));
+      else await ok(sb.from("ratings").delete().eq("user_id",S.uid).eq("route_id",x.route_id));
+      const s=JSON.stringify(x);setQ(getQ().filter(y=>JSON.stringify(y)!==s))}catch(e){return}
+  }
+  try{await loadRank()}catch(e){}
+}
+async function setAsc(id,st,d,a){
+  if(st){S.mine[id]=st;S.ad[id]={d:d,a:a};delete S.pj[id];enq([{t:"asc",route_id:id,style:st,done_at:d,attempts:a},{t:"pj_del",route_id:id}])}
+  else{delete S.mine[id];delete S.ad[id];enq([{t:"asc_del",route_id:id}])}
+  snap();await flush();detail(id)
+}
+async function setPj(id,n){
+  if(n==null){delete S.pj[id];enq([{t:"pj_del",route_id:id}])}
+  else{S.pj[id]=n;enq([{t:"pj",route_id:id,attempts:n}])}
+  snap();await flush();detail(id,true)
+}
+async function setRt(id,n){
+  if(n==null){delete S.rt[id];enq([{t:"rt_del",route_id:id}])}
+  else{S.rt[id]=n;enq([{t:"rt",route_id:id,stars:n}])}
+  snap();await flush();detail(id,true)
+}
+async function warm(){
+  if(!("serviceWorker" in navigator))return;
+  const u=[...S.schools.map(x=>x.photo_url),...S.routes.map(x=>x.photo_url)].filter(Boolean);
+  for(const x of [...new Set(u)]){try{await fetch(x)}catch(e){return}}
+}
+async function load(){
+  const[a,b,c,g,m,p,rt]=await Promise.all([ok(sb.from("schools").select("*").order("name")),ok(sb.from("routes").select("*")),ok(sb.from("ascents").select("route_id,style,done_at,attempts").eq("user_id",S.uid)),ok(sb.from("grade_points").select("*")),ok(sb.from("style_mult").select("*")),ok(sb.from("projects").select("route_id,attempts").eq("user_id",S.uid)),ok(sb.from("ratings").select("route_id,stars").eq("user_id",S.uid))]);
+  S.schools=a;S.routes=b;S.mine={};S.ad={};c.forEach(x=>{S.mine[x.route_id]=x.style;S.ad[x.route_id]={d:x.done_at,a:x.attempts}});
+  S.pj={};p.forEach(x=>S.pj[x.route_id]=x.attempts);S.rt={};rt.forEach(x=>S.rt[x.route_id]=x.stars);applyQ();
+  S.gp={};g.forEach(x=>S.gp[x.grade]=x.pts);S.sm={};m.forEach(x=>S.sm[x.style]=+x.mult);
+  S.pl=S.owner?await ok(sb.from("players").select("*").order("name")):[];
+  await loadRank();
+}
+async function start(){
+  try{
+    const{data:{session}}=await sb.auth.getSession();
+    if(!session){const c=unsnap();if(c&&!navigator.onLine)return offline(c);return welcome()}
+    if(REC&&!S.recDone)return newPass();
+    S.uid=session.user.id;S.anon=!!session.user.is_anonymous;S.owner=await tmo(ok(sb.rpc("is_owner")),10000)===true;
+    const p=await tmo(ok(sb.from("players").select("name,approved").eq("user_id",S.uid)),10000);
+    if(!p.length)return welcome();
+    S.name=p[0].name;
+    if(!p[0].approved&&!S.owner)return pending();
+    await tmo(load(),10000);schools();flush();warm();
+  }catch(e){const c=unsnap();if(c)return offline(c);$("#app").innerHTML=`<div class="empty">No se pudo conectar con la base de datos. Revisa la configuración.<br><small>${E(e.message||e)}</small></div>`}
+}
+document.addEventListener("visibilitychange",()=>{if(document.hidden||!S.uid)return;if(S.v==="p")return start();const m={s:schools,h:home,r:rank,m:mine,d:()=>detail(S.cur,true)}[S.v];if(m)load().then(m).catch(()=>{})});
+
+/* ---------- entrada ---------- */
+function welcome(){
+  S.v="w";const have=!!S.uid;
+  $("#app").innerHTML=`<h1>Mis vías</h1><p>${have?"Elige el nombre con el que aparecerás en el ranking.":"Crea tu cuenta para entrar. El administrador tiene que aprobarte."}</p>
+  <label for="nm">Tu nombre</label><input id="nm" maxlength="30" autocomplete="nickname">
+  <label for="iv">¿Quién te invita?</label><input id="iv" maxlength="60" placeholder="Nombre de quien te ha pasado el enlace">
+  ${have?"":`<label for="em">Correo</label><input id="em" type="email" autocomplete="username"><label for="pw">Contraseña (mínimo 6 caracteres)</label><input id="pw" type="password" autocomplete="new-password" minlength="6">`}
+  <div class="row"><button class="pri" id="go">${have?"Continuar":"Crear cuenta"}</button></div>
+  ${have?"":`<div class="row"><button id="ad">Ya tengo cuenta</button></div>`}`;
+  $("#go").onclick=async()=>{const n=$("#nm").value.trim();if(n.length<2)return alert("Escribe un nombre de al menos 2 letras.");
+    const iv=$("#iv").value.trim();if(!S.owner&&iv.length<2)return alert("Escribe quién te invita.");
+    try{
+      if(!S.uid){
+        const em=$("#em").value.trim(),pw=$("#pw").value;
+        if(!/^\S+@\S+\.\S+$/.test(em))return alert("Escribe un correo válido.");
+        if(pw.length<6)return alert("La contraseña debe tener al menos 6 caracteres.");
+        const{data,error}=await sb.auth.signUp({email:em,password:pw});
+        if(error){if(/registered|exists/i.test(error.message))return alert("Ese correo ya tiene cuenta. Pulsa “Ya tengo cuenta”.");throw error}
+        if(!data.session)return alert("La cuenta necesita confirmar el correo. Avisa al administrador.");
+        S.uid=data.user.id;
+      }
+      const{error}=await sb.from("players").insert({user_id:S.uid,name:n,invited_by:iv,approved:S.owner});
+      if(error){if(error.code==="23505")return alert("Ese nombre ya está en uso. Prueba con otro.");throw error}
+      start()}catch(e){err(e)}};
+  if(!have)$("#ad").onclick=login;
+}
+function login(){
+  S.v="l";
+  $("#app").innerHTML=`<h2>Entrar</h2><label for="em">Correo</label><input id="em" type="email" autocomplete="username"><label for="pw">Contraseña</label><input id="pw" type="password" autocomplete="current-password"><div class="row"><button class="pri" id="li">Entrar</button><button id="cn">Volver</button></div><div class="row"><button id="fp">He olvidado mi contraseña</button></div>`;
+  $("#cn").onclick=welcome;
+  $("#li").onclick=async()=>{const{error}=await sb.auth.signInWithPassword({email:$("#em").value.trim(),password:$("#pw").value});if(error)return alert("Correo o contraseña incorrectos.");S.uid=null;S.owner=false;start()};
+  $("#fp").onclick=async()=>{const em=$("#em").value.trim();if(!/^\S+@\S+\.\S+$/.test(em))return alert("Escribe primero tu correo en el campo de arriba.");
+    try{const{error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});if(error)throw error;
+      alert("Si ese correo tiene cuenta, te llegará un enlace para elegir una contraseña nueva.")}catch(e){err(e)}};
+}
+function newPass(){
+  S.v="n";
+  $("#app").innerHTML=`<h2>Nueva contraseña</h2><label for="pw">Contraseña nueva (mínimo 6 caracteres)</label><input id="pw" type="password" autocomplete="new-password"><div class="row"><button class="pri" id="sv">Guardar contraseña</button></div>`;
+  $("#sv").onclick=async()=>{const pw=$("#pw").value;if(pw.length<6)return alert("La contraseña debe tener al menos 6 caracteres.");
+    try{const{error}=await sb.auth.updateUser({password:pw});if(error)throw error;S.recDone=true;history.replaceState(null,"",location.pathname+location.search);alert("Contraseña cambiada.");start()}catch(e){err(e)}};
+}
+function secure(){
+  S.v="c";window.scrollTo(0,0);
+  $("#app").innerHTML=`<div class="top"><button id="bk">Volver</button></div><h2>Guardar mi cuenta</h2><p class="sub">Con un correo y una contraseña podrás entrar desde otro móvil o desde la app instalada, con tus mismas vías y puntos.</p>
+  <label for="em">Correo</label><input id="em" type="email" autocomplete="username"><label for="pw">Contraseña (mínimo 6 caracteres)</label><input id="pw" type="password" autocomplete="new-password" minlength="6">
+  <div class="row"><button class="pri" id="sv">Guardar cuenta</button></div>`;
+  $("#bk").onclick=schools;
+  $("#sv").onclick=async()=>{const em=$("#em").value.trim(),pw=$("#pw").value;
+    if(!/^\S+@\S+\.\S+$/.test(em))return alert("Escribe un correo válido.");
+    if(pw.length<6)return alert("La contraseña debe tener al menos 6 caracteres.");
+    try{const{error}=await sb.auth.updateUser({email:em,password:pw});if(error)throw error;
+      const{data:{user}}=await sb.auth.getUser();S.anon=!!(user&&user.is_anonymous);
+      if(S.anon)alert("Falta confirmar el correo: revisa tu bandeja de entrada y pulsa el enlace. Hasta entonces la cuenta no está guardada.");
+      else alert("Cuenta guardada. Ya puedes entrar desde otro dispositivo con ese correo y contraseña.");
+      schools()}catch(e){err(e)}};
+}
+
+/* ---------- escuelas ---------- */
+function schools(){
+  S.v="s";S.sc=null;window.scrollTo(0,0);const np=S.pl.filter(p=>!p.approved).length;
+  $("#app").innerHTML=`<h1>Escuelas</h1><div class="sub">Hola, ${E(S.name)}</div>
+  <div class="row"><button id="mi">Mis vías</button><button id="mpb">Mapa</button><button id="rk">Ranking</button>${S.owner?`<button id="am">Amigos${np?` (${np})`:""}</button>`:""}${S.anon?"":`<button id="lo">Salir</button>`}</div>
+  ${S.anon?`<div class="box"><b>Guarda tu cuenta</b><div class="sub">Ahora mismo tu cuenta solo existe en este dispositivo. Guárdala con un correo y una contraseña para poder entrar desde otro móvil o desde la app instalada.</div><div class="row"><button class="pri" id="sa2">Guardar mi cuenta</button></div></div>`:""}
+  ${S.schools.length?S.schools.map(s=>{const rs_=S.routes.filter(r=>r.school_id===s.id);const h=rs_.filter(r=>S.mine[r.id]).length;const aw=(s.notices||"").split("\n")[0].trim();return `<div class="sc"><button class="go" data-id="${s.id}"><div class="im" style="${s.photo_url?`background-image:url(&quot;${E(s.photo_url)}&quot;)`:""}"></div><div class="tx"><b>${E(s.name)}</b><span class="sub">${E(s.place)}</span><span class="sub">${rs_.length} vías, ${h} hechas por ti</span>${aw?`<span class="sub" style="color:var(--g3)">Aviso: ${E(aw.length>90?aw.slice(0,90)+"…":aw)}</span>`:""}</div></button><div class="ac"><a class="btn" href="${E(mapsUrl(s))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a>${S.owner?`<button data-ed="${s.id}">Editar escuela</button>`:""}</div></div>`}).join(""):`<div class="empty">Aún no hay escuelas.${S.owner?" Pulsa “Nueva escuela” para añadir la primera.":""}</div>`}
+  ${S.owner?`<div class="row"><button class="pri" id="nw">Nueva escuela</button></div>`:""}`;
+  $("#rk").onclick=rank;$("#mi").onclick=mine;$("#mpb").onclick=showMap;
+  if(S.owner){$("#am").onclick=friends;$("#nw").onclick=()=>schoolForm(null)}
+  if(!S.anon)$("#lo").onclick=async()=>{await sb.auth.signOut();try{localStorage.removeItem(CK)}catch(e){}S.uid=null;S.owner=false;S.anon=false;S.off=false;welcome()};
+  if(S.anon)$("#sa2").onclick=secure;
+  document.querySelectorAll(".go").forEach(b=>b.onclick=()=>{S.sc=b.dataset.id;S.f={q:"",g:"",s:""};home()});
+  document.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>schoolForm(S.schools.find(x=>x.id===b.dataset.ed)));
+}
+function schoolForm(s){
+  S.v="f";window.scrollTo(0,0);
+  const d=s?{...s}:{name:"",place:"",maps_url:"",photo_url:"",notices:"",lat:null,lng:null};
+  $("#app").innerHTML=`<h2>${s?"Editar escuela":"Nueva escuela"}</h2>
+  <label for="n">Nombre</label><input id="n" value="${E(d.name)}">
+  <label for="p">Localización</label><input id="p" placeholder="Pueblo o zona" value="${E(d.place)}">
+  <label for="c">Coordenadas (opcional)</label><input id="c" inputmode="decimal" placeholder="40.4168, -3.7038" value="${d.lat!=null&&d.lng!=null?E(d.lat+", "+d.lng):""}">
+  <div class="row"><button id="gp">Usar mi ubicación actual</button></div>
+  <div class="sub">Sirven para ponerla en el mapa y para “Cómo llegar”. En Google Maps, mantén pulsado un punto y copia los números que aparecen arriba.</div>
+  <label for="m">Enlace de Google Maps (opcional)</label><input id="m" type="url" placeholder="https://maps.app.goo.gl/..." value="${E(d.maps_url)}">
+  <div class="sub">Si lo dejas vacío, “Cómo llegar” usa las coordenadas o, si no hay, busca por nombre y localización.</div>
+  <label for="an">Avisos e información</label><textarea id="an" maxlength="1500" placeholder="Cierres por nidificación, acceso, aparcamiento, tiempo de aproximación, mejor época…">${E(d.notices)}</textarea>
+  <label>Foto de la escuela</label><div class="row"><button id="pb">${d.photo_url?"Cambiar foto":"Elegir foto"}</button><input id="pf" type="file" accept="image/*" hidden></div>
+  <div id="pv">${d.photo_url?pb(d.photo_url):""}</div>
+  <div class="row"><button class="pri" id="sv">Guardar escuela</button><button id="cn">Cancelar</button>${s?`<button class="dng" id="dl">Borrar escuela</button>`:""}</div>`;
+  $("#n").oninput=e=>d.name=e.target.value;$("#p").oninput=e=>d.place=e.target.value;$("#m").oninput=e=>d.maps_url=e.target.value.trim();$("#an").oninput=e=>d.notices=e.target.value;
+  $("#gp").onclick=()=>{if(!navigator.geolocation)return alert("Este dispositivo no permite obtener la ubicación.");navigator.geolocation.getCurrentPosition(p=>{$("#c").value=p.coords.latitude.toFixed(5)+", "+p.coords.longitude.toFixed(5)},()=>alert("No se pudo obtener la ubicación. Escribe las coordenadas a mano."),{enableHighAccuracy:true,timeout:15000})};
+  $("#pb").onclick=()=>$("#pf").click();
+  $("#pf").onchange=e=>rs(e.target.files[0],b=>{d.blob=b;$("#pv").innerHTML=pb(URL.createObjectURL(b))});
+  $("#cn").onclick=schools;
+  $("#sv").onclick=async()=>{if(!d.name.trim())return alert("Escribe un nombre para la escuela.");
+    const ll=parseLL($("#c").value);if(!ll)return alert("Las coordenadas no son válidas. Usa este formato: 40.4168, -3.7038");
+    try{if(d.blob)d.photo_url=await up(d.blob);
+      const row={name:d.name.trim(),place:d.place,maps_url:d.maps_url,photo_url:d.photo_url,notices:d.notices.trim(),lat:ll.lat,lng:ll.lng};
+      await ok(s?sb.from("schools").update(row).eq("id",s.id):sb.from("schools").insert(row));
+      await load();schools()}catch(e){err(e)}};
+  if(s)$("#dl").onclick=async()=>{const n=S.routes.filter(r=>r.school_id===s.id).length;if(!confirm(`¿Borrar “${s.name}” y sus ${n} vías? No se puede deshacer.`))return;
+    try{await ok(sb.from("schools").delete().eq("id",s.id));await load();schools()}catch(e){err(e)}};
+}
+
+/* ---------- mapa de escuelas ---------- */
+let LP=null;
+function loadLeaflet(){
+  if(window.L)return Promise.resolve();
+  if(LP)return LP;
+  LP=new Promise((res,rej)=>{const l=document.createElement("link");l.rel="stylesheet";l.href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css";document.head.appendChild(l);
+    const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js";s.onload=res;s.onerror=()=>{LP=null;rej(new Error("No se pudo cargar el mapa. Comprueba la conexión."))};document.head.appendChild(s)});
+  return LP;
+}
+async function showMap(){
+  S.v="k";window.scrollTo(0,0);
+  const ps=S.schools.filter(s=>s.lat!=null&&s.lng!=null),sin=S.schools.filter(s=>s.lat==null||s.lng==null);
+  $("#app").innerHTML=`<div class="top"><button id="bk">Volver</button></div><h1>Mapa</h1><div class="sub" style="margin-bottom:10px">${ps.length} de ${S.schools.length} escuelas con ubicación</div><div id="mpv" style="height:62vh;min-height:320px;border-radius:10px;overflow:hidden;border:1px solid var(--line)"></div>${sin.length?`<div class="sub" style="margin-top:10px">Sin ubicación: ${sin.map(s=>E(s.name)).join(", ")}.${S.owner?" Añade las coordenadas editando la escuela.":""}</div>`:""}`;
+  $("#bk").onclick=schools;
+  if(!ps.length){$("#mpv").innerHTML=`<div class="empty">Ninguna escuela tiene coordenadas todavía.</div>`;return}
+  try{await loadLeaflet()}catch(e){$("#mpv").innerHTML=`<div class="empty">${E(e.message)}</div>`;return}
+  if(S.v!=="k")return;
+  const m=L.map("mpv");
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(m);
+  ps.forEach(s=>{
+    const n=S.routes.filter(r=>r.school_id===s.id).length;
+    const el=document.createElement("div");
+    el.innerHTML=`<b>${E(s.name)}</b><br>${E(s.place)}<br>${n} vías<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button class="pg">Abrir</button><a class="btn" href="${E(mapsUrl(s))}" target="_blank" rel="noopener noreferrer">Cómo llegar</a></div>`;
+    el.querySelector(".pg").onclick=()=>{S.sc=s.id;S.f={q:"",g:"",s:""};home()};
+    L.circleMarker([s.lat,s.lng],{radius:10,color:"#fff",weight:3,fillColor:"#e0147a",fillOpacity:1}).addTo(m).bindPopup(el);
+  });
+  m.fitBounds(L.latLngBounds(ps.map(s=>[s.lat,s.lng])),{padding:[30,30],maxZoom:12});
+}
+
+/* ---------- vías ---------- */
+function home(){
+  const sc=S.schools.find(x=>x.id===S.sc);if(!sc)return schools();
+  S.v="h";
+  const secs=[...new Set(S.routes.filter(r=>r.school_id===S.sc).map(r=>r.sector).filter(Boolean))].sort();
+  $("#app").innerHTML=`<div class="top"><button id="bs">Escuelas</button><div class="row" style="margin:0"><button id="mi">Mis vías</button><button id="rk">Ranking</button></div></div><h1>${E(sc.name)}</h1><div class="sub" id="cnt" style="margin-bottom:12px"></div>
+  ${sc.notices?`<div class="box warn"><b>Avisos de la escuela</b><div class="notes">${E(sc.notices)}</div></div>`:""}
+  <div class="filters"><input id="q" type="search" placeholder="Buscar por nombre o nota" value="${E(S.f.q)}" aria-label="Buscar">
+  <select id="fg" aria-label="Grado"><option value="">Grado</option>${GR.map(g=>`<option ${S.f.g===g?"selected":""}>${g}</option>`).join("")}</select>
+  <select id="fs" aria-label="Sector"><option value="">Sector</option>${secs.map(t=>`<option ${S.f.s===t?"selected":""}>${E(t)}</option>`).join("")}</select></div>
+  <div id="list"></div>${S.owner?`<div class="row"><button class="pri" id="nw">Nueva vía</button></div>`:""}`;
+  $("#bs").onclick=schools;$("#rk").onclick=rank;$("#mi").onclick=mine;
+  $("#q").oninput=e=>{S.f.q=e.target.value;list()};$("#fg").onchange=e=>{S.f.g=e.target.value;list()};$("#fs").onchange=e=>{S.f.s=e.target.value;list()};
+  if(S.owner)$("#nw").onclick=()=>routeForm(null);
+  list();
+}
+function list(){
+  const f=S.f,q=f.q.trim().toLowerCase(),all=S.routes.filter(r=>r.school_id===S.sc);
+  const rs_=all.filter(r=>(!f.g||r.grade===f.g)&&(!f.s||r.sector===f.s)&&(!q||(r.name+" "+r.notes).toLowerCase().includes(q))).sort((a,b)=>a.sector.localeCompare(b.sector)||gi(a.grade)-gi(b.grade));
+  $("#cnt").textContent=`${rs_.length} de ${all.length} vías, ${all.filter(r=>S.mine[r.id]).length} hechas por ti`;
+  $("#list").innerHTML=rs_.length?rs_.map(r=>`<button class="card" data-id="${r.id}"><div class="thumb" style="${r.photo_url?`background-image:url(&quot;${E(r.photo_url)}&quot;)`:""}">${poly(r.line,3)}</div><div><div class="nm">${E(r.name)}</div><div class="sub">${E(r.sector)}${S.rt[r.id]?` <span style="color:var(--g2)">★ ${S.rt[r.id]}</span>`:""}${S.mine[r.id]?` <span class="ok">Hecha: ${E(S.mine[r.id])}, ${E(fd((S.ad[r.id]||{}).d))}</span>`:S.pj[r.id]!=null?` <span style="color:var(--acc);font-weight:600">Proyecto, ${att(S.pj[r.id])||"0 intentos"}</span>`:""}</div></div>${sbadge(S.mine[r.id])}<div class="gr" style="color:${gcol(r.grade)}">${E(r.grade)}</div></button>`).join(""):`<div class="empty">No hay vías con esos filtros.</div>`;
+  document.querySelectorAll(".card").forEach(b=>b.onclick=()=>{S.from="";detail(b.dataset.id)});
+}
+function detail(id,keep){
+  const r=S.routes.find(x=>x.id===id);if(!r)return home();
+  S.v="d";S.cur=id;if(!keep)window.scrollTo(0,0);
+  const st=S.mine[id],ad=S.ad[id]||{},pj=S.pj[id],oth=others(r.photo_url,r.id,r.school_id);
+  const opts=styles().map(s=>`<option value="${E(s)}" ${s===st?"selected":""}>${E(s)} (+${pts(r,s)} puntos)</option>`).join("");
+  $("#app").innerHTML=`<div class="top"><button id="bk">Volver</button><span class="gr" style="color:${gcol(r.grade)};font-size:34px">${E(r.grade)}</span></div>
+  <h2>${E(r.name)}</h2><div class="sub">${E(r.sector)}</div>
+  <div class="rate"><div class="stars" role="group" aria-label="Tu valoración">${[1,2,3,4,5].map(n=>`<button class="star ${n<=(S.rt[id]||0)?"f":""}" data-n="${n}" aria-label="${n} ${n===1?"estrella":"estrellas"}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></button>`).join("")}</div>${st?"":`<button class="ib ${pj!=null?"act":""}" id="pi" aria-pressed="${pj!=null}" aria-label="${pj!=null?"Quitar de mis proyectos":"Añadir a mis proyectos"}" title="${pj!=null?"Quitar de mis proyectos":"Añadir a mis proyectos"}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v17l-6-4-6 4z"/></svg></button>`}</div>
+  <div class="sub">Tu valoración solo la ves tú.</div>${pb(r.photo_url,r.line,false,"Esta vía aún no tiene foto.",oth,true)}
+  ${oth.length?`<div class="sub">Otras vías en esta foto:</div><div class="row" style="margin-top:6px">${oth.map(o=>`<button class="chip" data-o="${o.id}" style="border-color:${gcol(o.grade)}">${E(o.name)} ${E(o.grade)}</button>`).join("")}</div>`:""}
+  <div class="facts"><div><b>${r.length||"–"} m</b><span>Longitud</span></div><div><b>${r.bolts||"–"}</b><span>Chapas</span></div></div>
+  ${r.notes?`<p class="notes">${E(r.notes)}</p>`:""}
+  <div class="box">${st?`${sbadge(st)} <span class="ok">Hecha: ${E(st)}</span><div class="sub">${E(fd(ad.d))}${ad.a?", "+att(ad.a):""}, +${pts(r,st)} puntos</div>`:`<b>¿Ya la has hecho?</b>`}
+  <label for="as">Estilo</label><select id="as">${opts}</select>
+  <div class="g2"><div><label for="ad">Fecha</label><input id="ad" type="date" max="${td()}" value="${ad.d?ymd(ad.d):td()}"></div><div><label for="at">Intentos (opcional)</label><input id="at" type="number" min="1" max="999" inputmode="numeric" value="${ad.a||(pj>0?pj:"")}"></div></div>
+  <div class="row"><button class="pri" id="sa">${st?"Guardar cambios":"Marcar como hecha"}</button>${st?`<button class="dng" id="ra">Quitar</button>`:""}</div>${getQ().some(x=>x.route_id===id)?`<div class="sub">Pendiente de sincronizar: se enviará cuando tengas conexión.</div>`:""}</div>
+  ${!st&&pj!=null?`<div class="box"><b>Proyecto</b><div style="margin:6px 0"><span style="font:700 28px 'Barlow Condensed',sans-serif">${pj}</span> <span class="sub">${pj===1?"intento":"intentos"}</span></div><div class="row"><button class="pri" id="pp">+1 intento</button><button id="pm">−1</button></div></div>`:""}
+  <div class="box"><b>Quién la ha hecho</b><div id="sends">${msg("Cargando…")}</div></div>
+  <div class="box"><b>Mis notas</b> <span class="sub">(solo las ves tú)</span><textarea id="nt" maxlength="1000" placeholder="Tu secuencia, trucos, sensaciones…" disabled></textarea><div class="row"><button id="sn">Guardar nota</button></div></div>
+  <div class="box"><b>Beta y comentarios</b><div id="bt">${msg("Cargando…")}</div><label for="nb">Añadir comentario</label><textarea id="nb" maxlength="500" placeholder="Un truco, una advertencia, el paso clave…" style="min-height:70px"></textarea><div class="row"><button id="pb2">Publicar</button></div></div>
+  ${S.owner?`<div class="row"><button id="ed">Editar vía</button><button class="dng" id="dl">Borrar vía</button></div>`:""}`;
+  $("#bk").onclick=S.from==="m"?mine:home;
+  document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>detail(b.dataset.o));
+  $("#sa").onclick=()=>{const dv=$("#ad").value;if(!dv)return alert("Elige la fecha del encadene.");if(dv>td())return alert("La fecha no puede ser futura.");const a=parseInt($("#at").value,10);setAsc(id,$("#as").value,iso(dv),a>0?Math.min(a,999):null)};
+  if(st)$("#ra").onclick=()=>setAsc(id,null);
+  document.querySelectorAll(".star").forEach(b=>b.onclick=()=>{const n=+b.dataset.n;setRt(id,S.rt[id]===n?null:n)});
+  if(!st){$("#pi").onclick=()=>{if(pj==null)return setPj(id,0);if(pj>0&&!confirm(`¿Quitar de proyectos? Se perderán los ${pj} intentos contados.`))return;setPj(id,null)}}
+  if(!st&&pj!=null){$("#pp").onclick=()=>setPj(id,Math.min(999,pj+1));$("#pm").onclick=()=>setPj(id,Math.max(0,pj-1))}
+  $("#sn").onclick=async()=>{const t=$("#nt").value.trim();const b=$("#sn");
+    try{if(t)await ok(sb.from("route_notes").upsert({user_id:S.uid,route_id:id,body:t},{onConflict:"user_id,route_id"}));else await ok(sb.from("route_notes").delete().eq("user_id",S.uid).eq("route_id",id));
+      b.textContent="Guardada";setTimeout(()=>{b.textContent="Guardar nota"},1500)}catch(e){err(e)}};
+  $("#pb2").onclick=async()=>{const t=$("#nb").value.trim();if(!t)return alert("Escribe un comentario.");
+    try{await ok(sb.from("betas").insert({route_id:id,user_id:S.uid,body:t}));$("#nb").value="";extras(id)}catch(e){err(e)}};
+  if(S.owner){$("#ed").onclick=()=>routeForm(r);$("#dl").onclick=async()=>{if(!confirm(`¿Borrar “${r.name}”? No se puede deshacer.`))return;try{await ok(sb.from("routes").delete().eq("id",id));await load();home()}catch(e){err(e)}}}
+  extras(id);
+}
+async function extras(id){
+  const[a,b,c]=await Promise.allSettled([ok(sb.rpc("route_sends",{rid:id})),ok(sb.rpc("route_betas",{rid:id})),ok(sb.from("route_notes").select("body").eq("user_id",S.uid).eq("route_id",id))]);
+  if(S.v!=="d"||S.cur!==id)return;
+  const sd=$("#sends"),bt=$("#bt"),nt=$("#nt");if(!sd||!bt||!nt)return;
+  if(a.status==="fulfilled"){const x=a.value;sd.innerHTML=x.length?x.map(p=>`<div class="ln">${sbadge(p.style)}<div style="flex:1"><b>${E(p.name)}</b>${p.user_id===S.uid?" (tú)":""}<div class="sub">${E(p.style)}, ${E(fd(p.done_at))}${p.attempts?", "+att(p.attempts):""}</div></div></div>`).join(""):msg("Nadie la ha marcado todavía.")}
+  else sd.innerHTML=msg("No se pudo cargar. Comprueba la conexión.");
+  if(b.status==="fulfilled"){const x=b.value;bt.innerHTML=x.length?x.map(p=>`<div class="ln" style="display:block"><div class="sub"><b style="color:var(--ink)">${E(p.name)}</b>, ${E(fd(p.created_at))}</div><div class="notes">${E(p.body)}</div>${p.mine||S.owner?`<button data-bd="${p.id}" style="min-height:32px;padding:4px 10px;margin-top:4px">Borrar</button>`:""}</div>`).join(""):msg("Aún no hay comentarios.");
+    bt.querySelectorAll("[data-bd]").forEach(k=>k.onclick=async()=>{if(!confirm("¿Borrar este comentario?"))return;try{await ok(sb.from("betas").delete().eq("id",k.dataset.bd));extras(id)}catch(e){err(e)}})}
+  else bt.innerHTML=msg("No se pudo cargar. Comprueba la conexión.");
+  if(c.status==="fulfilled"){if(!nt.dataset.l){nt.value=c.value.length?c.value[0].body:"";nt.dataset.l="1"}nt.disabled=false}
+  else nt.placeholder="Sin conexión: no se pueden cargar tus notas.";
+}
+function routeForm(r){
+  S.v="f";window.scrollTo(0,0);
+  const d={...(r||{school_id:S.sc,name:"",grade:"6a",sector:"",bolts:"",length:"",year:"",notes:"",photo_url:"",line:[]})};d.line=[...(d.line||[])];
+  const secs=[...new Set(S.routes.filter(x=>x.school_id===S.sc).map(x=>x.sector).filter(Boolean))];
+  const seen=new Set(),wp=S.routes.filter(x=>x.school_id===S.sc&&x.photo_url&&x.id!==(r&&r.id)).filter(x=>!seen.has(x.photo_url)&&seen.add(x.photo_url));
+  $("#app").innerHTML=`<h2>${r?"Editar vía":"Nueva vía"}</h2>
+  <label for="n">Nombre</label><input id="n" value="${E(d.name)}">
+  <label for="g">Grado</label><select id="g">${GR.map(g=>`<option ${d.grade===g?"selected":""}>${g}</option>`).join("")}</select>
+  <label for="s">Sector</label><input id="s" list="sl" value="${E(d.sector)}"><datalist id="sl">${secs.map(x=>`<option value="${E(x)}">`).join("")}</datalist>
+  <div class="g2"><div><label for="b">Chapas</label><input id="b" type="number" min="0" value="${E(d.bolts)}"></div><div><label for="l">Longitud (m)</label><input id="l" type="number" min="0" value="${E(d.length)}"></div></div>
+  <label for="o">Notas</label><textarea id="o">${E(d.notes)}</textarea>
+  <label>Foto y línea de la vía</label><div class="row"><button id="pb">${d.photo_url?"Cambiar foto":"Elegir foto nueva"}</button><input id="pf" type="file" accept="image/*" hidden></div>
+  ${wp.length?`<select id="up" aria-label="Usar la foto de otra vía"><option value="">O usar la foto de otra vía de esta escuela…</option>${wp.map(x=>`<option value="${x.id}">Foto de ${E(x.name)}</option>`).join("")}</select><div class="sub">Si dos vías comparten foto, al abrir una se ven también las líneas de las otras.</div>`:""}
+  <div id="pa"></div>
+  <div class="row"><button class="pri" id="sv">Guardar vía</button><button id="cn">Cancelar</button></div>`;
+  [["n","name"],["g","grade"],["s","sector"],["b","bolts"],["l","length"],["o","notes"]].forEach(([i,k])=>$("#"+i).oninput=$("#"+i).onchange=e=>d[k]=e.target.value);
+  const pa=()=>{const src=d.prev||d.photo_url;
+    $("#pa").innerHTML=pb(src,d.line,true,"Añade una foto para dibujar la línea de la vía.",others(src,r&&r.id,S.sc),false)+(src?`<div class="sub">Toca la foto para marcar los puntos de la línea, de abajo arriba. Las líneas de otras vías aparecen más finas.</div><div class="row"><button id="un">Deshacer punto</button><button id="cl">Borrar línea</button></div>`:"");
+    if(!src)return;
+    $("#ph").onclick=e=>{const b=$("#ph").getBoundingClientRect();d.line.push([Math.round((e.clientX-b.left)/b.width*1000),Math.round((e.clientY-b.top)/b.height*1000)]);pa()};
+    $("#un").onclick=()=>{d.line.pop();pa()};$("#cl").onclick=()=>{d.line=[];pa()}};
+  $("#pb").onclick=()=>$("#pf").click();
+  $("#pf").onchange=e=>rs(e.target.files[0],b=>{d.blob=b;d.prev=URL.createObjectURL(b);d.line=[];pa()});
+  if(wp.length)$("#up").onchange=e=>{const x=S.routes.find(y=>y.id===e.target.value);if(!x)return;d.blob=null;d.prev=null;d.photo_url=x.photo_url;d.line=[];pa()};
+  $("#cn").onclick=()=>r?detail(r.id):home();
+  $("#sv").onclick=async()=>{if(!d.name.trim())return alert("Escribe un nombre para la vía.");
+    try{if(d.blob)d.photo_url=await up(d.blob);
+      const row={school_id:d.school_id,name:d.name.trim(),grade:d.grade,sector:d.sector,bolts:+d.bolts||null,length:+d.length||null,notes:d.notes,photo_url:d.photo_url,line:d.line};
+      const o=await ok(r?sb.from("routes").update(row).eq("id",r.id).select():sb.from("routes").insert(row).select());
+      await load();detail(o[0].id)}catch(e){err(e)}};
+  pa();
+}
+
+/* ---------- mis vías ---------- */
+function mine(){
+  S.v="m";S.from="m";window.scrollTo(0,0);S.mt=S.mt||"d";S.ms=S.ms||"r";
+  const sn=id=>(S.schools.find(x=>x.id===id)||{}).name||"";
+  const t=r=>+new Date((S.ad[r.id]||{}).d)||0;
+  const so={r:(a,b)=>t(b)-t(a)||gi(b.grade)-gi(a.grade),d:(a,b)=>gi(b.grade)-gi(a.grade)||a.name.localeCompare(b.name),v:(a,b)=>(S.rt[b.id]||0)-(S.rt[a.id]||0)||t(b)-t(a)};
+  const done=S.routes.filter(r=>S.mine[r.id]).sort(so[S.ms]||so.r);
+  const prj=S.routes.filter(r=>S.pj[r.id]!=null&&!S.mine[r.id]).sort((a,b)=>gi(b.grade)-gi(a.grade)||a.name.localeCompare(b.name));
+  const tot=done.reduce((n,r)=>n+pts(r,S.mine[r.id]),0);
+  const place=r=>`${E(sn(r.school_id))}${r.sector?", "+E(r.sector):""}`;
+  const body=S.mt==="d"
+    ?`<div class="row" style="align-items:center"><div class="sub" style="flex:1">${done.length} vías hechas, ${tot} puntos</div><select id="ms" aria-label="Orden" style="width:auto"><option value="r" ${S.ms==="r"?"selected":""}>Más recientes</option><option value="d" ${S.ms==="d"?"selected":""}>Más difíciles</option><option value="v" ${S.ms==="v"?"selected":""}>Mejor valoradas</option></select></div>
+      ${done.length?done.map(r=>{const a=S.ad[r.id]||{};return `<button class="card" data-id="${r.id}">${sbadge(S.mine[r.id])}<div><div class="nm">${E(r.name)}</div><div class="sub">${place(r)}</div><div class="sub">${E(S.mine[r.id])}, ${E(fd(a.d))}${a.a?", "+att(a.a):""}, +${pts(r,S.mine[r.id])} puntos${S.rt[r.id]?`, ★ ${S.rt[r.id]}`:""}</div></div><div class="gr" style="color:${gcol(r.grade)}">${E(r.grade)}</div></button>`}).join(""):`<div class="empty">Aún no has marcado ninguna vía. Abre una vía y pulsa “Marcar como hecha”.</div>`}`
+    :(prj.length?prj.map(r=>`<button class="card" data-id="${r.id}"><div><div class="nm">${E(r.name)}</div><div class="sub">${place(r)}</div><div class="sub">${att(S.pj[r.id])||"Sin intentos todavía"}</div></div><div class="gr" style="color:${gcol(r.grade)}">${E(r.grade)}</div></button>`).join(""):`<div class="empty">No tienes proyectos. Abre una vía y pulsa “Añadir a mis proyectos”.</div>`);
+  $("#app").innerHTML=`<div class="top"><button id="bk">Volver</button></div><h1>Mis vías</h1>
+  <div class="row"><button id="t1" class="${S.mt==="d"?"on":""}">Hechas (${done.length})</button><button id="t2" class="${S.mt==="p"?"on":""}">Proyectos (${prj.length})</button></div>${body}`;
+  $("#bk").onclick=schools;
+  $("#t1").onclick=()=>{S.mt="d";mine()};$("#t2").onclick=()=>{S.mt="p";mine()};
+  if(S.mt==="d")$("#ms").onchange=e=>{S.ms=e.target.value;mine()};
+  document.querySelectorAll(".card").forEach(b=>b.onclick=()=>{const r=S.routes.find(x=>x.id===b.dataset.id);if(!r)return;S.sc=r.school_id;S.from="m";detail(r.id)});
+}
+
+/* ---------- aprobación de amigos ---------- */
+function pending(){
+  S.v="p";
+  $("#app").innerHTML=`<h1>Mis vías</h1><p>Hola, ${E(S.name)}. Tu solicitud está enviada. El administrador tiene que aprobarte antes de que puedas entrar.</p><div class="row"><button class="pri" id="rt">Comprobar de nuevo</button></div>`;
+  $("#rt").onclick=start;
+}
+async function friends(){
+  S.v="a";window.scrollTo(0,0);
+  try{S.pl=await ok(sb.from("players").select("*").order("name"))}catch(e){return err(e)}
+  const o=S.pl.filter(p=>p.user_id!==S.uid),pe=o.filter(p=>!p.approved),ap=o.filter(p=>p.approved);
+  const row=(p,b)=>`<div class="rk"><span class="nm">${E(p.name)}${p.invited_by?`<span class="sub" style="display:block;font-weight:400">Invitado por ${E(p.invited_by)}</span>`:""}</span>${b}</div>`;
+  $("#app").innerHTML=`<div class="top"><button id="bk">Volver</button></div><h1>Amigos</h1>
+  <h2 style="margin-top:16px">Pendientes</h2>${pe.length?pe.map(p=>row(p,`<button class="pri" data-ok="${p.user_id}">Aprobar</button><button class="dng" data-no="${p.user_id}">Rechazar</button>`)).join(""):`<div class="sub">No hay solicitudes pendientes.</div>`}
+  <h2 style="margin-top:20px">Aprobados</h2>${ap.length?ap.map(p=>row(p,`<button class="dng" data-no="${p.user_id}">Quitar</button>`)).join(""):`<div class="sub">Aún no has aprobado a nadie.</div>`}`;
+  $("#bk").onclick=schools;
+  document.querySelectorAll("[data-ok]").forEach(b=>b.onclick=async()=>{try{await ok(sb.from("players").update({approved:true}).eq("user_id",b.dataset.ok));friends()}catch(e){err(e)}});
+  document.querySelectorAll("[data-no]").forEach(b=>b.onclick=async()=>{if(!confirm("¿Seguro? Perderá el acceso y sus vías marcadas dejarán de contar en el ranking."))return;try{await ok(sb.from("players").delete().eq("user_id",b.dataset.no));friends()}catch(e){err(e)}});
+}
+
+/* ---------- ranking ---------- */
+function rank(){
+  S.v="r";window.scrollTo(0,0);
+  $("#app").innerHTML=`<div class="top"><button id="bk">Volver</button></div><h1>Ranking</h1><div class="sub" style="margin-bottom:12px">Puntos por grado y estilo de encadene</div>
+  ${S.rank.length?S.rank.map((p,i)=>`<div class="rk ${p.user_id===S.uid?"me":""}"><span class="pos">${i+1}</span><span class="nm">${E(p.name)}</span><span class="sub">${p.sends} vías</span><b>${p.points}</b></div>`).join(""):`<div class="empty">Aún nadie ha marcado vías. Marca la primera desde la ficha de una vía.</div>`}
+  <details class="box"><summary>Cómo se puntúa</summary><p class="sub">Cada vía da puntos según su grado, multiplicados por el estilo: ${styles().map(k=>`${E(k)} ×${S.sm[k]}`).join(", ")}. Cada vía cuenta una sola vez, con el estilo que hayas marcado.</p></details>`;
+  $("#bk").onclick=()=>S.sc?home():schools();
+}
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+addEventListener("offline",bn);
+addEventListener("online",()=>{bn();if(S.off){S.off=false;start()}else flush()});
+start();
+</script>
+</body>
+</html>
