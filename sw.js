@@ -1,4 +1,4 @@
-const V="vias-v1";
+const V="vias-v2";
 const SHELL=["./","index.html","config.js","manifest.webmanifest","icon-192.png","icon-512.png"];
 const LIBS=["https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"];
 self.addEventListener("install",e=>{e.waitUntil((async()=>{
