@@ -180,7 +180,7 @@ async function load(){
   S.pj={};p.forEach(x=>S.pj[x.route_id]=x.attempts);S.rt={};rt.forEach(x=>S.rt[x.route_id]=x.stars);applyQ();
   S.gp={};g.forEach(x=>S.gp[x.grade]=x.pts);S.sm={};m.forEach(x=>S.sm[x.style]=+x.mult);
   S.pl=S.owner?await ok(sb.from("players").select("*").order("name")):[];
-  await loadRank();
+  await loadRank();lastLoad=Date.now();
 }
 async function start(){
   try{
@@ -195,7 +195,8 @@ async function start(){
     await tmo(load(),10000);schools();flush();warm();
   }catch(e){const c=unsnap();if(c)return offline(c);$("#app").innerHTML=`<div class="empty">No se pudo conectar con la base de datos. Revisa la configuración.<br><small>${E(e.message||e)}</small></div>`}
 }
-document.addEventListener("visibilitychange",()=>{if(document.hidden||!S.uid)return;if(S.v==="p")return start();const m={s:schools,h:home,r:rank,m:mine,d:()=>detail(S.cur,true)}[S.v];if(m)load().then(m).catch(()=>{})});
+let lastLoad=0;
+document.addEventListener("visibilitychange",()=>{if(document.hidden||!S.uid)return;if(Date.now()-lastLoad<60000)return;lastLoad=Date.now();if(S.v==="p")return start();const m={s:schools,h:home,r:rank,m:mine,d:()=>detail(S.cur,true)}[S.v];if(m)load().then(m).catch(()=>{})});
 
 /* ---------- entrada ---------- */
 function welcome(){
@@ -206,7 +207,7 @@ function welcome(){
   ${have?"":`<label for="em">Correo</label><input id="em" type="email" autocomplete="username"><label for="pw">Contraseña (mínimo 6 caracteres)</label><input id="pw" type="password" autocomplete="new-password" minlength="6">`}
   <div class="row"><button class="pri" id="go">${have?"Continuar":"Crear cuenta"}</button></div>
   ${have?"":`<div class="row"><button id="ad">Ya tengo cuenta</button></div>`}`;
-  $("#go").onclick=async()=>{const n=$("#nm").value.trim();if(n.length<2)return alert("Escribe un nombre de al menos 2 letras.");
+  $("#go").onclick=async()=>{const n=$("#nm").value.trim();if(n.length<2)return alert("Escribe un nombre de al menos 2 letras.");if(/[<>]/.test(n))return alert("El nombre no puede llevar los signos < ni >.");
     const iv=$("#iv").value.trim();if(!S.owner&&iv.length<2)return alert("Escribe quién te invita.");
     try{
       if(!S.uid){
@@ -467,10 +468,11 @@ async function friends(){
   const row=(p,b)=>`<div class="rk"><span class="nm">${E(p.name)}${p.invited_by?`<span class="sub" style="display:block;font-weight:400">Invitado por ${E(p.invited_by)}</span>`:""}</span>${b}</div>`;
   $("#app").innerHTML=`<div class="top"><button id="bk">Volver</button></div><h1>Amigos</h1>
   <h2 style="margin-top:16px">Pendientes</h2>${pe.length?pe.map(p=>row(p,`<button class="pri" data-ok="${p.user_id}">Aprobar</button><button class="dng" data-no="${p.user_id}">Rechazar</button>`)).join(""):`<div class="sub">No hay solicitudes pendientes.</div>`}
-  <h2 style="margin-top:20px">Aprobados</h2>${ap.length?ap.map(p=>row(p,`<button class="dng" data-no="${p.user_id}">Quitar</button>`)).join(""):`<div class="sub">Aún no has aprobado a nadie.</div>`}`;
+  <h2 style="margin-top:20px">Aprobados</h2>${ap.length?ap.map(p=>row(p,`<button class="dng" data-off="${p.user_id}">Quitar</button>`)).join(""):`<div class="sub">Aún no has aprobado a nadie.</div>`}`;
   $("#bk").onclick=schools;
   document.querySelectorAll("[data-ok]").forEach(b=>b.onclick=async()=>{try{await ok(sb.from("players").update({approved:true}).eq("user_id",b.dataset.ok));friends()}catch(e){err(e)}});
-  document.querySelectorAll("[data-no]").forEach(b=>b.onclick=async()=>{if(!confirm("¿Seguro? Perderá el acceso y sus vías marcadas dejarán de contar en el ranking."))return;try{await ok(sb.from("players").delete().eq("user_id",b.dataset.no));friends()}catch(e){err(e)}});
+  document.querySelectorAll("[data-off]").forEach(b=>b.onclick=async()=>{if(!confirm("¿Quitar el acceso? Sus vías dejarán de contar en el ranking hasta que lo vuelvas a aprobar."))return;try{await ok(sb.from("players").update({approved:false}).eq("user_id",b.dataset.off));friends()}catch(e){err(e)}});
+  document.querySelectorAll("[data-no]").forEach(b=>b.onclick=async()=>{if(!confirm("¿Rechazar esta solicitud?"))return;try{await ok(sb.from("players").delete().eq("user_id",b.dataset.no));friends()}catch(e){err(e)}});
 }
 
 /* ---------- ranking ---------- */
